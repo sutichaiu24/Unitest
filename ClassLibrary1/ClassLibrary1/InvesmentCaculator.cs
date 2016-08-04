@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace ClassLibrary1
 {
     public class IVCaculator
-    {
+    {  
         public struct Result
         {
             public decimal FinalValue;
@@ -25,6 +26,10 @@ namespace ClassLibrary1
             result.InterestEarnedOverTime = 10;
 
             return result; 
+        }
+        public decimal GetInterestRatePerYear()
+        {
+            return 0.5m ;
         }
     }
 }
