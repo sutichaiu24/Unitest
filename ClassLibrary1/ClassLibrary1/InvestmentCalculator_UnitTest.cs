@@ -69,7 +69,7 @@ namespace ClassLibrary1
             Assert.AreEqual(IRP, interestRatePerYear);
 
         }
-       
+       [Test]
 
     }
 }
