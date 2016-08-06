@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 
 namespace ClassLibrary1
-{
+{  // This is just a mock
     public class IVCaculator
     {  
         public struct Result
@@ -31,5 +31,6 @@ namespace ClassLibrary1
         {
             return 0.5m ;
         }
+        
     }
 }

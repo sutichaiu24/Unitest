@@ -14,15 +14,17 @@ namespace ClassLibrary1
     {
         private IVCaculator cal;
 
+
         [SetUp]
         public void Init()
         {
             cal = new IVCaculator();
         }
 
+        #region InvestmentCaculator
         [TestCase(200, 100, 100, 12, 2181.72)]
-        [TestCase(100, 5, 100, 12,1337.26)]
-        public void InvestmentCalculator_WithValidInvestmentParamter_ShouldreturnValidFinalValue(decimal startBalance, decimal interestRatePerYear, decimal monthlyContribution, int contributionPeriod ,decimal FV)
+        [TestCase(100, 5, 100, 12, 1337.26)]
+        public void InvestmentCalculator_WithValidInvestmentParamter_ShouldreturnValidFinalValue(decimal startBalance, decimal interestRatePerYear, decimal monthlyContribution, int contributionPeriod, decimal FV)
         {
             //Arrange
 
@@ -32,24 +34,56 @@ namespace ClassLibrary1
             //Assert
             Assert.AreEqual(FV, iResult.FinalValue);
         }
-        [TestCase(-1,-1,-1,-1)]
-        [TestCase(0,-1,0,0,0)]
-        [TestCase(0,0,-1,0,0)]
-        [TestCase(0,0,0,0,-1)]
-        public void InvestmentCalculator_WithMinusValue_ShouldreturnProperException(decimal startBalance, decimal interestRatePerYear, decimal monthlyContribution, int contributionPeriod, decimal FV)
+
+        [TestCase(-1, -1, -1, -1)]
+        [TestCase(0, -1, -1, 0)]
+        [TestCase(-1, 0, 0, 0)]
+        public void InvestmentCalculator_WithMinusInterestAndContribution_ShouldnotReturnFinalValueAsMinusAndThrowExpection(decimal startBalance, decimal interestRatePerYear, decimal monthlyContribution, int contributionPeriod)
         {
+            //Arrange
+
+
+            //Act
             try
             {
                 var iResult = cal.InvestmentCalculator(startBalance, interestRatePerYear, monthlyContribution, contributionPeriod);
-                Assert.Fail();
+                Assert.IsFalse(iResult.FinalValue < 0, "FV cannot be Minus");
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
-                Assert.AreEqual("Param cannot be minus", e.Message);
-                Assert.Pass();
+                Assert.AreEqual("The Input cannot be Negative", ex.Message);
+
             }
-            
+            //Assert
+
+
         }
+
+        [TestCase(int.MaxValue)]
+        public void InvesmentCalculator_WithDecminalMaxtoPrincipleAndInterestRate_ShouldreturnWanringException(decimal startBalance)
+        {
+            //Arrange
+            var interestRatePerYear = decimal.MaxValue;
+            var monthlyContribution = decimal.MaxValue;
+            var contributionPeriod = int.MaxValue;
+
+
+            //Act
+            try
+            {
+                var iResult = cal.InvestmentCalculator(startBalance, interestRatePerYear, monthlyContribution, contributionPeriod);
+
+            }
+            catch (System.OverflowException ex)
+            {
+                Assert.AreNotEqual("Value was either too large or too small for a Decimal", ex.Message);
+            }
+
+        }
+
+        #endregion
+
+        #region GetInterestRatePerYear
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(50)]
@@ -69,7 +103,10 @@ namespace ClassLibrary1
             Assert.AreEqual(IRP, interestRatePerYear);
 
         }
-       [Test]
 
+    
+   
+
+        #endregion
     }
 }
