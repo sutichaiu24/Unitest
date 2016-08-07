@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Microsoft.VisualBasic;
-
+using System.Diagnostics;
 
 namespace ClassLibrary1
 {
@@ -81,6 +81,31 @@ namespace ClassLibrary1
 
         }
 
+        // Total = [ Compound interest for principal ] + [ Future value of a series ] 
+        // Future value of a series = PMT * (((1 + r/n)^nt - 1) / (r/n))
+        [Test]
+        public void InvesmentCalculator_WithZeroInterestRate_ShouldreturnPrincipleCombineWithInterestWithoutZerodivisionException()
+        {
+            //Arrange
+            var interestRatePerYear = 0;
+            var startBalance = 100;
+            var monthlyContribution = 100;
+            var contributionPeriod = 12;
+
+            //Act
+            try
+            {
+                var iResult = cal.InvestmentCalculator(startBalance, interestRatePerYear, monthlyContribution, contributionPeriod);
+                Assert.AreEqual(1200, iResult.FinalValue);
+            }
+            catch (DivideByZeroException e)
+            {
+                Debug.Write(e.Message);
+                Assert.Fail();
+            }
+            //Assert
+           
+        }
         #endregion
 
         #region GetInterestRatePerYear
@@ -104,8 +129,8 @@ namespace ClassLibrary1
 
         }
 
-    
-   
+
+
 
         #endregion
     }
