@@ -14,7 +14,6 @@ namespace ClassLibrary1
     {
         private IVCaculator cal;
 
-
         [SetUp]
         public void Init()
         {
@@ -42,7 +41,6 @@ namespace ClassLibrary1
         {
             //Arrange
 
-
             //Act
             try
             {
@@ -55,8 +53,6 @@ namespace ClassLibrary1
 
             }
             //Assert
-
-
         }
 
         [TestCase(int.MaxValue)]
@@ -128,10 +124,6 @@ namespace ClassLibrary1
             Assert.AreEqual(IRP, interestRatePerYear);
 
         }
-
-
-
-
         #endregion
     }
 }
