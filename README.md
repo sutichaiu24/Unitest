@@ -17,5 +17,7 @@ PMT * (((1 + r/n)^nt - 1) / (r/n))
 
 Final value  = Compound interest for principal + Future value of a series
 
+Note. The e-invesment calculator code is for mock purpose only there is no actual real implementation. Just for make test code more realistic
+
 Reference 
 http://www.thecalculatorsite.com/articles/finance/compound-interest-formula.php?page=2
